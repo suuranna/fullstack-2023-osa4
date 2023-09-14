@@ -2,8 +2,8 @@ POST http://localhost:3003/api/blogs
 Content-Type: application/json
 
 {
-    "title": "Maija mehiläisen seikkailut",
+    "title": "Maija mehiläisen seikkailut 2",
     "author": "Maija Meikäläinen",
-    "url": "wwww.wikipedia.fi",
-    "likes": 3
+    "url": "wwww.wikipedia.com",
+    "likes": 30
 }
