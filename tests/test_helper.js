@@ -5,7 +5,7 @@ const newBlogs = [
 		title: "TDD harms architecture",
 		author: "Robert C. Martin",
 		url: "http://blog.cleancoder.com/uncle-bob/2017/03/03/TDD-Harms-Architecture…",
-		likes: 0
+		likes: 100
 	},
 	{
 		title: "React patterns",

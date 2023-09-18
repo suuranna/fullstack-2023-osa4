@@ -46,10 +46,10 @@ test('a blog can be added', async () => {
 
 	const blogsAtTheEnd = await api.get('/api/blogs')
 	expect(blogsAtTheEnd.body).toHaveLength(7)
-	expect(blogsAtTheEnd.body[6]['author'].toBeDefined)
-	expect(blogsAtTheEnd.body[6]['url'].toBeDefined)
-	expect(blogsAtTheEnd.body[6]['title'].toBeDefined)
-	expect(blogsAtTheEnd.body[6]['likes'].toBeDefined)
+	expect(blogsAtTheEnd.body[6]['author']).toEqual('minä')
+	expect(blogsAtTheEnd.body[6]['url']).toEqual('www.github.com')
+	expect(blogsAtTheEnd.body[6]['title']).toEqual('uusi kirja')
+	expect(blogsAtTheEnd.body[6]['likes']).toEqual(1)
 	expect(blogsAtTheEnd.body[6]['id'].toBeDefined)
 })
 
@@ -67,6 +67,24 @@ test('a wrong-kind-of blog can not be added', async () => {
 
 	const blogsAtTheEnd = await api.get('/api/blogs')
 	expect(blogsAtTheEnd.body).toHaveLength(6)
+})
+
+test('when no likes are given will the default value be 0', async () => {
+	const blogWithNoLikes = {
+		title: 'title',
+		author: 'author',
+		url: 'www.no_url.com'
+	}
+
+	await api
+		.post('/api/blogs')
+		.send(blogWithNoLikes)
+		.expect(201)
+		.expect('Content-Type', /application\/json/)
+
+	const blogsAtTheEnd = await api.get('/api/blogs')
+	expect(blogsAtTheEnd.body).toHaveLength(7)
+	expect(blogsAtTheEnd.body[6]['likes']).toEqual(0)
 })
 
 afterAll(async () => {
