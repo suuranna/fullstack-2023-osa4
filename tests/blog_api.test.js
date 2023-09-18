@@ -87,6 +87,28 @@ test('when no likes are given will the default value be 0', async () => {
 	expect(blogsAtTheEnd.body[6]['likes']).toEqual(0)
 })
 
+test('an existing blog can be deleted', async () => {
+	const blogs = await api.get('/api/blogs')
+	const id = blogs.body[0]['id']
+
+	await api
+		.delete('/api/blogs/' + id)
+		.expect(204)
+
+	const blogsAtTheEnd = await api.get('/api/blogs')
+	expect(blogsAtTheEnd.body).toHaveLength(5)
+
+})
+
+test('a non-existing blog can not be deleted', async () => {
+	await api
+		.delete('/api/blogs/abhjbshkjss')
+		.expect(500)
+
+	const blogsAtTheEnd = await api.get('/api/blogs')
+	expect(blogsAtTheEnd.body).toHaveLength(6)
+})
+
 afterAll(async () => {
 	await mongoose.connection.close()
 })
