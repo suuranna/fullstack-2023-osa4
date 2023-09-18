@@ -1,0 +1,9 @@
+PUT http://localhost:3003/api/blogs/65084b802867f4f16dae1df4
+Content-Type: application/json
+
+{
+    "title": "Maija mehiläisen seikkailut 23",
+    "author": "Maija Meikäläinen 2",
+    "url": "wwww.wikipedia.com/yeet",
+    "likes": 600
+}

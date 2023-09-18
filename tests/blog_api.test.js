@@ -109,6 +109,42 @@ test('a non-existing blog can not be deleted', async () => {
 	expect(blogsAtTheEnd.body).toHaveLength(6)
 })
 
+test('an existing blog can be updated', async () => {
+	const blogs = await api.get('/api/blogs')
+	const id = blogs.body[0]['id']
+
+	firstBlog = {
+		title: "TDD harms architecture",
+		author: "Robert C. Martin",
+		url: "http://blog.cleancoder.com/uncle-bob/2017/03/03/TDD-Harms-Architecture…",
+		likes: 100
+	}
+
+	await api
+		.put('/api/blogs/' + id)
+		.send(firstBlog)
+		.expect(200)
+
+	const blogsAtTheEnd = await api.get('/api/blogs')
+	expect(blogsAtTheEnd.body).toHaveLength(6)
+	expect(blogsAtTheEnd.body[0]['likes']).toEqual(101)
+})
+
+test('a non-existing blog can not be updated', async () => {
+	await api
+		.put('/api/blogs/abhjbshkjss')
+		.expect(500)
+
+	const blogsAtTheEnd = await api.get('/api/blogs')
+	expect(blogsAtTheEnd.body).toHaveLength(6)
+	expect(blogsAtTheEnd.body[0]['likes']).toEqual(100)
+	expect(blogsAtTheEnd.body[1]['likes']).toEqual(7)
+	expect(blogsAtTheEnd.body[2]['likes']).toEqual(2)
+	expect(blogsAtTheEnd.body[3]['likes']).toEqual(5)
+	expect(blogsAtTheEnd.body[4]['likes']).toEqual(12)
+	expect(blogsAtTheEnd.body[5]['likes']).toEqual(10)
+})
+
 afterAll(async () => {
 	await mongoose.connection.close()
 })
