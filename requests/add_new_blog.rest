@@ -1,9 +1,10 @@
-POST http://localhost:3003/api/blogs/
+POST http://localhost:3003/api/blogs
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik1PSUtLQVNTU1MiLCJpZCI6IjY1MGFjMzM3ZGM5ZjFmNzk3NGM4NjJmMCIsImlhdCI6MTY5NTIwOTEwOX0.RKWRnmlcz72H-jGf2VKwLlWKqGShZXVcQ0g01hPctOo
 
 {
     "title": "Maija mehiläisen seikkailut 5",
     "author": "Maija Meikäläinen",
     "url": "wwww.wikipedia.com",
-    "likes": 69
+    "likes": 69000
 }
